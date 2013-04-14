@@ -7,18 +7,23 @@ angular.module('hitchARideApp')
   .directive('searchMap', function () {
     return {
       restrict: 'A',
-      link: function (scope, elt, attrs) {
+      link: function (scope, elt, attrs) {//????
         var input = elt[0];
+		
         var searchBox = new google.maps.places.SearchBox(input);
         google.maps.event.addListener(searchBox, 'places_changed', function() {
+			//$apply() is used to execute an expression in angular from outside of the angular framework.
           scope.$apply(function () {
             var model = scope;
             var modelPath = attrs.ngModel.split('.');
+			//alert(modelPath);
             var lastPath = modelPath.pop();
+			
             modelPath.forEach(function (path) {
               model = model[path];
             });
             model[lastPath] = elt.val();
+			
           });
         });
       }
@@ -67,13 +72,14 @@ angular.module('hitchARideApp')
             });
           }
         };
-
+//Registers a listener callback to be executed whenever the watchExpression changes.
         scope.$watch('tripWaypoints', function (newVal) {
           tripWaypoints = newVal;
           requestDirections();
         });
 
         scope.$watch('tripStart', function (newVal) {
+
           tripStart = newVal;
           requestDirections();
         });

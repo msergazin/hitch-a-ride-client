@@ -2,6 +2,8 @@
 
 angular.module('hitchARideApp', ['btford.socket-io'])
   .config(function ($routeProvider, $locationProvider) {
+	  
+	  
     $routeProvider
       .when('/', {
         templateUrl: 'views/new-trip.html'

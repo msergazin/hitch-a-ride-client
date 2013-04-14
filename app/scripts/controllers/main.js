@@ -4,7 +4,6 @@ angular.module('hitchARideApp')
   .controller('MainCtrl', function ($scope) {
 
     $scope.alerts = 0;
-
     $scope.$on('trip:matched', function () {
       $scope.alerts += 1;
     });
