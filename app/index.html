@@ -11,23 +11,26 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/bootstrap-responsive.min.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="components/hitch-a-ride-style/styles/bootstrap.amelia.css">
+    <link rel="stylesheet" href="components/hitch-a-ride-style/styles/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="components/hitch-a-ride-style/styles/main.css">
   </head>
   <body ng-app="hitchARideApp" ng-controller="MainCtrl">
 
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner" style="width: auto; padding: 0 20px;">
         <a class="brand" href>HAR</a>
-        <ul class="nav">
-          <li route-active><a href="./">New</a></li>
+        <ul class="nav" ng-show="login">
           <li route-active><a href="trips">Trips</a></li>
         </ul>
-        <ul class="nav pull-right">
+        <ul class="nav pull-right" ng-show="login">
           <li ng-show="alerts > 0"><a href="trips">
             <span class="badge badge-important">{{alerts}}</span>
           </a></li>
+          <li route-active><a href="profile" style="position: relative; padding-right: 50px;">{{login.name}} 
+            <img ng-src="https://s2.googleusercontent.com/s2/photos/profile/{{login.id}}?sz=30"
+              style="position: absolute; right: 10px; top: 11px;"></a>
+          </li>
         </ul>
       </div>
     </div>
@@ -38,7 +41,6 @@
 
     <div ng-view class="text-center container"></div>
 
-    
     <!--[if lt IE 9]>
       <script src="components/es5-shim/es5-shim.js"></script>
       <script src="components/json3/lib/json3.min.js"></script>
@@ -47,19 +49,37 @@
 
     <script src="components/angular/angular.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-
+    <script src="https://apis.google.com/js/client:plusone.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+
 
     <!-- build:js scripts/scripts.js -->
     <script src="components/angular-socket-io/socket.js"></script>
+    <script src="components/angular-phonegap-ready/ready.js"></script>
+    <script src="components/angular-phonegap-geolocation/geolocation.js"></script>
+
+    <script>
+    angular.module('btford.mock-phonegap-ready', []).
+    factory('phonegapReady', function () {
+      return function (fn) {
+        return fn;
+      };
+    });</script>
+
+    
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/ride.js"></script>
     <script src="scripts/controllers/drive.js"></script>
     <script src="scripts/controllers/trips.js"></script>
     <script src="scripts/controllers/trip.js"></script>
+    <script src="scripts/controllers/profile.js"></script>
     <script src="scripts/directives/navBarTop.js"></script>
     <script src="scripts/directives/map.js"></script>
+    <script src="scripts/directives/gplus.js"></script>
+    <script src="scripts/services/login.js"></script>
+    <script src="scripts/filters/dasherize.js"></script>
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

@@ -12,4 +12,8 @@ angular.module('hitchARideApp')
       $scope.alerts = 0;
     });
 
+    $scope.$on('login', function () {
+      $scope.login = arguments[1];
+    });
+
   });
